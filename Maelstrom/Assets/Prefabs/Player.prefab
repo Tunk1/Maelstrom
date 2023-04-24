@@ -98,7 +98,6 @@ GameObject:
   - component: {fileID: 719624292766851423}
   - component: {fileID: 719624292766851393}
   - component: {fileID: 719624292766851418}
-  - component: {fileID: 719624292766851419}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -120,7 +119,7 @@ Transform:
   m_Children:
   - {fileID: 719624293707336327}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &719624292766851420
 SpriteRenderer:
@@ -294,9 +293,33 @@ MonoBehaviour:
       m_Action: Shoot
       m_Flags: 0
     m_Flags: 0
+  Fire:
+    m_Name: Fire
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 35a430c4-619e-4d91-bd5b-238b11a21143
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 6791adba-1f87-487e-9256-01bd50f25b65
+      m_Path: <Mouse>/leftButton
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Fire
+      m_Flags: 0
+    m_Flags: 0
   Weapon: {fileID: 719624293707336324}
   position: {x: 0, y: 0}
   bulletPrefab: {fileID: 6630683469598468640, guid: e6da6f0592bb1d34183b8b7065a88746, type: 3}
+  firePoint: {fileID: 719624293544783845}
+  bulletprefab: {fileID: 6630683469598468668, guid: e6da6f0592bb1d34183b8b7065a88746, type: 3}
+  bulletForce: 20
+  fireCooldown: 2
+  CoolDownTime: 0.5
+  bulletLife: 0
+  allowFire: 1
 --- !u!60 &719624292766851418
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -333,42 +356,6 @@ PolygonCollider2D:
       - {x: 0.06968592, y: 0.039800286}
       - {x: -0.028591976, y: 0.03988592}
   m_UseDelaunayMesh: 0
---- !u!114 &719624292766851419
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 719624292766851392}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04c513710d586084b8f33313aa1047dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  firePoint: {fileID: 719624293544783845}
-  bulletprefab: {fileID: 6630683469598468668, guid: e6da6f0592bb1d34183b8b7065a88746, type: 3}
-  Fire:
-    m_Name: Fire
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: ba41beaa-00f7-4720-b11d-a291ea770a7c
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 
-      m_Id: 6428da43-bb12-4285-8f3d-6fb51c4d58bc
-      m_Path: <Gamepad>/rightTrigger
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Fire
-      m_Flags: 0
-    m_Flags: 0
-  bulletForce: 20
-  fireCooldown: 2
-  CoolDownTime: 0.5
-  bulletLife: 0
-  allowFire: 1
 --- !u!1 &719624293544783844
 GameObject:
   m_ObjectHideFlags: 0
