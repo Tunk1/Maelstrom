@@ -105,6 +105,11 @@ public class PlayerController : MonoBehaviour
         {
             health--;
         }
+        if (other.CompareTag("Enemy"))
+        {
+            health--;
+
+        }
     }
 
 }
