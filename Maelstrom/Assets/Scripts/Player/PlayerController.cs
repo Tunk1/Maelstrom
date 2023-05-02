@@ -14,7 +14,6 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D myRB;
     public InputAction Move;
     public InputAction Shoot;
-    public InputAction Fire;
     public Weapon Weapon;
 
     private bool isGamepad;
@@ -25,14 +24,6 @@ public class PlayerController : MonoBehaviour
     private CharacterController controller;
     private Weapon weaponParent;
     public Transform bulletPrefab;
-    public Transform firePoint;
-    public GameObject bulletprefab;
-
-    public float bulletForce = 20f;
-    public float fireCooldown = 2;
-    public float CoolDownTime = .5f;
-    public float bulletLife;
-    public bool allowFire = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -48,13 +39,13 @@ public class PlayerController : MonoBehaviour
         //Enables Input System Actions
         Move.Enable();
         Shoot.Enable();
-        Fire.Enable();
+
     }
     private void OnDisable()
     {
         Move.Disable();
         Shoot.Disable();
-        Fire.Disable();
+
     }
 
     // Update is called once per frame
@@ -70,19 +61,6 @@ public class PlayerController : MonoBehaviour
         myRB.velocity = Move.ReadValue<Vector2>() * moveSpeed;
         pointerInput = GetPointerInput();
         weaponParent.Pointerposition = pointerInput;
-        if (Fire.IsPressed() && allowFire)
-        {
-            StartCoroutine(Shoot());
-        }
-        IEnumerator Shoot()
-        {
-            allowFire = false;
-            GameObject bullet = Instantiate(bulletprefab, firePoint.position, firePoint.rotation);
-            Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-            rb.AddForce(firePoint.right * bulletForce, ForceMode2D.Impulse);
-            yield return new WaitForSeconds(CoolDownTime);
-            allowFire = true;
-        }
     }
     private Vector2 GetPointerInput()
     {
@@ -104,11 +82,6 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("EnemyBullet"))
         {
             health--;
-        }
-        if (other.CompareTag("Enemy"))
-        {
-            health--;
-
         }
     }
 
