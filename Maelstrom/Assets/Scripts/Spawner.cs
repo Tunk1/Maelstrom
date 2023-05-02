@@ -7,8 +7,6 @@ public class Spawner : MonoBehaviour
     [SerializeField] private float spawnrate = 3f;
 
     [SerializeField] private GameObject[] enemyPrefab;
-
-    [SerializeField] private bool canSpawn = true;
     private void Start()
     {
         StartCoroutine(Spawner());
