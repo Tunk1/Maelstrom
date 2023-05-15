@@ -6,28 +6,43 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    
     public float moveSpeed = 7;
     public float facingDirection;
     public float lookingDirection;
     public float health = 20;
+    public float maxHealth = 10;
+
+    public float dashSpeed = 15;
+    public float dashLength = .5f, dashCooldown = 1f;
+    public float activeMoveSpeed;
+    private float dashCounter;
+    private float dashCool;
 
     public Rigidbody2D myRB;
     public InputAction Move;
     public InputAction Shoot;
+    public InputAction Dodge;
+
     public Weapon Weapon;
 
     private bool isGamepad;
+    public bool Dashable;
 
     private Vector2 pointerInput;
     public Vector2 position;
+    private Vector3 rollDir;
+
 
     private CharacterController controller;
     private Weapon weaponParent;
     public Transform bulletPrefab;
+
+
     // Start is called before the first frame update
     void Start()
     {
-
+        activeMoveSpeed = moveSpeed;
         Physics2D.IgnoreCollision(bulletPrefab.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         //Create Rigidbody
         myRB = GetComponent<Rigidbody2D>();
@@ -39,28 +54,59 @@ public class PlayerController : MonoBehaviour
         //Enables Input System Actions
         Move.Enable();
         Shoot.Enable();
-
+        Dodge.Enable();
     }
     private void OnDisable()
     {
         Move.Disable();
         Shoot.Disable();
-
+        Dodge.Disable();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (health <= 0)
+        if (dashCounter > 0)
         {
-            Destroy(gameObject);
+            dashCounter -= Time.deltaTime;
+
+            if (dashCounter <= 0)
+            {
+                activeMoveSpeed = moveSpeed;
+                dashCool = dashCooldown;
+
+            }
         }
-        facingDirection = transform.eulerAngles.y;
-        lookingDirection = transform.eulerAngles.y;
-        lookingDirection = 180;
-        myRB.velocity = Move.ReadValue<Vector2>() * moveSpeed;
-        pointerInput = GetPointerInput();
-        weaponParent.Pointerposition = pointerInput;
+        if (dashCool > 0)
+        {
+            dashCool -= Time.deltaTime;
+        }
+
+
+        //Dodge Stuff
+        if (Dodge.IsPressed())
+        {
+
+           
+            if (dashCool <=0 && dashCounter <=0)
+            {
+                activeMoveSpeed = dashSpeed;
+                dashCounter = dashLength;
+            }
+            
+        }
+
+         if (health <= 0)
+         {
+                    Destroy(gameObject);
+         }
+         facingDirection = transform.eulerAngles.y;
+         lookingDirection = transform.eulerAngles.y;
+         lookingDirection = 180;
+         myRB.velocity = Move.ReadValue<Vector2>() * activeMoveSpeed;
+         pointerInput = GetPointerInput();
+         weaponParent.Pointerposition = pointerInput;
+          
     }
     private Vector2 GetPointerInput()
     {
@@ -87,6 +133,11 @@ public class PlayerController : MonoBehaviour
         {
             health--;
 
+        }
+        if (other.CompareTag("Health") && health < maxHealth)
+        {
+            Destroy(other.gameObject);
+            health++;
         }
     }
 

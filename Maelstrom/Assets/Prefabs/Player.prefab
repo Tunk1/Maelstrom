@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 719624292766851393}
   - component: {fileID: 719624292766851418}
   - component: {fileID: 719624292766851419}
+  - component: {fileID: 8723391196895078753}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -120,7 +121,7 @@ Transform:
   m_Children:
   - {fileID: 719624293707336327}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &719624292766851420
 SpriteRenderer:
@@ -211,6 +212,9 @@ MonoBehaviour:
   facingDirection: 0
   lookingDirection: 0
   health: 20
+  dashSpeed: 0
+  dashLength: 0.5
+  dashCooldown: 1
   myRB: {fileID: 719624292766851423}
   Move:
     m_Name: Move
@@ -294,6 +298,23 @@ MonoBehaviour:
       m_Action: Shoot
       m_Flags: 0
     m_Flags: 0
+  Dodge:
+    m_Name: Dodge
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: df65ac1d-fc3d-4fad-a688-e5c1d2f00e6d
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 1df39724-a992-4c8d-96c6-c29f2e87be73
+      m_Path: <Gamepad>/leftTrigger
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Dodge
+      m_Flags: 0
+    m_Flags: 0
   Weapon: {fileID: 719624293707336324}
   position: {x: 0, y: 0}
   bulletPrefab: {fileID: 6630683469598468640, guid: e6da6f0592bb1d34183b8b7065a88746, type: 3}
@@ -369,6 +390,40 @@ MonoBehaviour:
   CoolDownTime: 0.5
   bulletLife: 0
   allowFire: 1
+--- !u!60 &8723391196895078753
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 719624292766851392}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.32, y: 0.32}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.03, y: 0.06}
+      - {x: -0.11, y: -0.01}
+      - {x: -0.11, y: -0.049999997}
+      - {x: -0.08, y: -0.06}
+      - {x: 0.099999994, y: -0.06}
+      - {x: 0.11, y: -0.02}
+      - {x: 0.11, y: 0.02}
+      - {x: 0.07, y: 0.06}
+  m_UseDelaunayMesh: 0
 --- !u!1 &719624293544783844
 GameObject:
   m_ObjectHideFlags: 0
